@@ -1,15 +1,17 @@
 # Steps
 
 1. Connect to Org.
-2. Right-click the folder 'classes', then choose SFDX: Deploy Source To Org.
-3. Ctrl+Shift+P > SFDX: Run Apex Tests. > Choose Test File
-4. SFDX: Toggle Checkpoint > To set Checkpoint.
-5. SFDX: Update Checkpoints in Org > To tell Salesforce about your checkpoints.
-6. SFDX: Turn On Apex Debug Log for Replay Debugger. To enable debug logs.
-7. SFDX: Run Apex Tests > Choose Test File.
-8. SFDX: Get Apex Debug Logs > To get a debug log.
-9. Click any line in the debug log > Choose SFDX: Launch Apex Replay Debugger with Current File.
-10. If the file is modified, click any line in the file, then choose SFDX: Deploy This Source to Org.
+2. To create a project: Ctrl+Shift+P > SFDX: Create Project > Standard project template (default)
+3. To create classes: Create a folder > Right-click the folder > SFDX: Create Apex Class.
+4. Right-click the folder 'classes', then choose SFDX: Deploy Source To Org.
+5. Ctrl+Shift+P > SFDX: Run Apex Tests. > Choose Test File
+6. SFDX: Toggle Checkpoint > To set Checkpoint.
+7. SFDX: Update Checkpoints in Org > To tell Salesforce about your checkpoints.
+8. SFDX: Turn On Apex Debug Log for Replay Debugger. To enable debug logs.
+9. SFDX: Run Apex Tests > Choose Test File.
+10. SFDX: Get Apex Debug Logs > To get a debug log.
+11. Click any line in the debug log > Choose SFDX: Launch Apex Replay Debugger with Current File.
+12. If the file is modified, click any line in the file, then choose SFDX: Deploy This Source to Org.
 
 # Salesforce DX Project: Next Steps
 
