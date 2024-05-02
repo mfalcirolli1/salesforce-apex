@@ -13,6 +13,15 @@
 11. Click any line in the debug log > Choose SFDX: Launch Apex Replay Debugger with Current File.
 12. If the file is modified, click any line in the file, then choose SFDX: Deploy This Source to Org.
 
+# Notas Importantes
+
+* Apex não diferencia maiúsculas de minúsculas
+* Apex e o banco de dados da plataforma do Lightning estão intimamente ligados
+* A maioria dos padrões de design .NET não funciona na plataforma do Lightning
+* Testes de unidade são obrigatórios. Precisa ter uma cobertura de teste de 75% para implantar seu código do Apex em uma organização de produção
+* Não existem arquivos de solução, projeto ou configuração
+* Não é preciso se preocupar com a autenticação ou com o armazenamento de senhas e sequências de caracteres para conexão com o banco de dados
+
 # Salesforce DX Project: Next Steps
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
