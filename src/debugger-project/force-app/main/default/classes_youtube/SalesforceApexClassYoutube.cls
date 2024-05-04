@@ -170,4 +170,18 @@ public with sharing class SalesforceApexClassYoutube {
             }
         }
     }
+
+    // SOQL -> Para pesquisas de um único objeto quando conhece os campos a serem pesquisados (você sabe em qual campo os dados residem)
+    // SOSL -> Para pesquisas de um ou vários objetos quando não conhece os campos a serem pesquisados.
+
+    // SOSL
+    
+    // Pesquisar em um único objeto
+    // FIND {term} RETURNING ObjectTypeName -> FIND {march 2016 email} RETURNING Campaign
+
+    // Pesquisar em vários objetos
+    // FIND {term} RETURNING ObjectTypeName1, ObjectTypeName2, ObjectTypeNameYouGetTheIdea -> FIND {recycled materials} RETURNING Product2, ContentVersion, FeedItem
+
+    // Pesquisar em objetos personalizados
+    // FIND {pink hi\-top} RETURNING Merchandise__c (acrescentar o sufixo '__c')
 }

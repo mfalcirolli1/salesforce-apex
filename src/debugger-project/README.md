@@ -21,6 +21,13 @@
 * Testes de unidade são obrigatórios. Precisa ter uma cobertura de teste de 75% para implantar seu código do Apex em uma organização de produção
 * Não existem arquivos de solução, projeto ou configuração
 * Não é preciso se preocupar com a autenticação ou com o armazenamento de senhas e sequências de caracteres para conexão com o banco de dados
+* Para transformar um método de processamento síncrono em processamento assíncrono basta acrescentar a anotação @future ao método. Garantir que o método é estático e void
+* Métodos futuros precisam ter parâmetros de dados primitivos. Não podem considerar objetos como parâmetros
+* Não é possível encadear métodos futuros e fazer com que um chame o outro
+* Usar o processamento assíncrono quando: Precisar fazer callouts para serviços web externos; Processar grande número de registros; XP de usuário melhor e mais rápida
+* Cada registro de depuração tem de ter até 20 MB
+* Cada organização pode reter até 1.000 MB de registros de depuração (os registros mais antigos são substituídos)
+    
 
 # Salesforce DX Project: Next Steps
 
