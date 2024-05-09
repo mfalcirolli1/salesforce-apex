@@ -170,6 +170,16 @@ public with sharing class SalesforceApexClassYoutube {
             }
         }
     }
+    
+    public static void Search_SOSL(){
+        
+        // FIND {Cloud Kicks} RETURNING Account
+        // FIND {Cloud Kicks} RETURNING Account (Name, Industry)
+        // FIND {Cloud Kicks} RETURNING Account (Name, Industry ORDER BY Name)
+        // FIND {Cloud Kicks} RETURNING Account (Name, Industry ORDER BY Name LIMIT 10)
+        // FIND {Cloud Kicks} RETURNING Account (Name, Industry ORDER BY Name LIMIT 10 OFFSET 25)
+        // FIND {Cloud Kicks} RETURNING Account (Name, Industry) WITH DIVISION = 'Global'
+    }
 
     // SOQL -> Para pesquisas de um único objeto quando conhece os campos a serem pesquisados (você sabe em qual campo os dados residem)
     // SOSL -> Para pesquisas de um ou vários objetos quando não conhece os campos a serem pesquisados.
