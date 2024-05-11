@@ -27,7 +27,34 @@
 * Usar o processamento assíncrono quando: Precisar fazer callouts para serviços web externos; Processar grande número de registros; XP de usuário melhor e mais rápida
 * Cada registro de depuração tem de ter até 20 MB
 * Cada organização pode reter até 1.000 MB de registros de depuração (os registros mais antigos são substituídos)
-    
+
+# Níveis de Registro
+
+* NONE (NENHUM)
+* ERROR (ERRO)
+* WARN (AVISO)
+* INFO (INFORMAÇÕES)
+* DEBUG (DEPURAÇÃO)
+* FINE (BOM)
+* FINER (ÓTIMO)
+* FINEST (MELHOR)
+
+# LWC - Lightning Web Components
+
+* Os componentes Web do Lightning usam os principais padrões de Componentes Web e fornecem apenas o que é necessário para um bom desempenho em navegadores compatíveis com o Salesforce.
+* A maior parte do código usado é JavaScript e HTML padrão.
+* A vantagem de aderir aos padrões da Web é a simplicidade. Não é necessário aprender a usar as peculiaridades de uma estrutura específica. Basta criar componentes usando HTML, JavaScript e CSS.
+* Etapas:
+    1. Criar um arquivo JavaScript
+    2. Criar um arquivo HTML
+    3. Opcionalmente, criar um arquivo CSS
+* Componentes Web do Lightning e os Componentes do Aura funcionam juntos
+* Biblioteca de componentes do Lightning:
+    1. http://<MyDomainName>.lightning.force.com/docs/component-library
+    2. https://developer.salesforce.com/docs/component-library/overview/components.
+    3. https://github.com/trailheadapps/ebikes-lwc
+    4. Extension VS Code: Salesforce Extension Pack
+    5. Lightning Data Service (LDS): https://developer.salesforce.com/docs/platform/lwc/guide/data-ui-api?_ga=2.58323887.46376943.1715208361-164224861.1712974007
 
 # Salesforce DX Project: Next Steps
 

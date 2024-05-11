@@ -181,11 +181,23 @@ public with sharing class SalesforceApexClassYoutube {
         // FIND {Cloud Kicks} RETURNING Account (Name, Industry) WITH DIVISION = 'Global'
     }
 
-    // SOQL -> Para pesquisas de um único objeto quando conhece os campos a serem pesquisados (você sabe em qual campo os dados residem)
-    // SOSL -> Para pesquisas de um ou vários objetos quando não conhece os campos a serem pesquisados.
-
-    // SOSL
+    // SOQL ->  Salesforce Object Query Language
+    // Para pesquisas de um único objeto quando conhece os campos a serem pesquisados (você sabe em qual campo os dados residem)
+    // Usado para ler informações armazenadas no BD da org. Similiar ao SQL.
+    // Ex: Contact[] theseContacts = [SELECT Name, Phone, Email, Description FROM Contact WHERE (Department='Finance') ORDER BY Name];
     
+    // SOSL -> (Salesforce Object Search Language 
+    // Para pesquisas de um ou vários objetos quando não conhece os campos a serem pesquisados.
+    // Pode pesquisar diversos tipos de objetos ao mesmos tempo. Pode usar uma correspondência de palavras para comparar campos.
+    // Ex: List<List<sObject>> searchList = [FIND 'Jake' IN ALL FIELDS RETURNING Contact(FirstName, LastName, Phone, Email, Description)];
+    // Contact[] searchContacts = (Contact[])searchList[0];
+    
+
+    // OU SEJA
+    // Quando é executada uma pesquisa SOSL para registros de contatos usando a palavra “Crise”, 
+    // a pesquisa procura em todos os campos dos contatos e retorna todos os registros contendo essa palavra. 
+    // Mas ao a mesma coisa em uma consulta SOQL, é necessário especificar os campos a serem pesquisados e uma palavra ou expressão completa a ser pesquisada.
+
     // Pesquisar em um único objeto
     // FIND {term} RETURNING ObjectTypeName -> FIND {march 2016 email} RETURNING Campaign
 
