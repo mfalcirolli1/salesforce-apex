@@ -7,4 +7,11 @@ public with sharing class AccountTriggerHandler {
             conta.ShippingState = conta.BillingState;
         }
     }
+
+    @AuraEnabled(cacheable=true)
+    public static Account ObterPrimeiraConta(String billingState) {
+
+        List<Account> accts = [ SELECT Id, Name, AccountNumber, TickerSymbol FROM Account WHERE BillingState = :billingState ];
+        return accts[0];
+    }
 }
