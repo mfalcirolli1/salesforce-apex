@@ -1,8 +1,9 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import { bikes } from 'c/data';
 
 export default class List extends LightningElement {
     bikes = bikes;
+    @api accountName;
 
     handleTileClick(evt) {
         // This component wants to emit a productselected event to its parent

@@ -29,9 +29,10 @@ export default class Selector extends LightningElement {
         return this.temp.data;
     }
 
-    @wire(ObterPrimeiraConta, {billingState: 'CA'}) account;
-    
-    get conta(){
-        return this.account.data;
+    state = 'CA';
+    @wire(ObterPrimeiraConta, {billingState: '$state'}) accountName;
+
+    get nomeConta(){
+        return this.accountName.data;
     }
 }

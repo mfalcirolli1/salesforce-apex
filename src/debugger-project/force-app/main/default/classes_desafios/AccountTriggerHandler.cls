@@ -9,9 +9,9 @@ public with sharing class AccountTriggerHandler {
     }
 
     @AuraEnabled(cacheable=true)
-    public static Account ObterPrimeiraConta(String billingState) {
+    public static string ObterPrimeiraConta(String billingState) {
 
         List<Account> accts = [ SELECT Id, Name, AccountNumber, TickerSymbol FROM Account WHERE BillingState = :billingState ];
-        return accts[0];
+        return accts[0].Name;
     }
 }
