@@ -1,23 +1,71 @@
 // A instrução 'import' indica que o JavaScript usa a funcionalidade 'LightningElement' no módulo 'lwc'
 // O 'LightningElement' é a classe básica dos componentes Web do Lightning que permite usar connectedCallback()
-import { LightningElement } from 'lwc';
+import { LightningElement, wire, api, track } from 'lwc';
+import ReturnAddressByCep from '@salesforce/apex/CepAPI.ReturnAddressByCep'
 
 // 'export': Define uma classe que estende a classe LightningElement
 
 export default class App extends LightningElement {
-  name = 'Electra X4';
-  description = 'A sweet bike built for comfort.';
-  category = 'Mountain';
-  material = 'Steel';
-  price = '$2,700';
-  pictureUrl = 'https://s3-us-west-1.amazonaws.com/sfdc-demo/ebikes/electrax4.jpg';
-  ready = false;
 
-  connectedCallback() {
-    setTimeout(() => {
-      this.ready = true;
-    }, 3000);
+  ready = false;
+  
+  @track address;
+  @track cep;
+  @track error;
+
+  handleInputCepChange(event){
+    this.cep = event.target.value;
+    console.log(this.cep);
   }
+
+  handleBuscarEndereco(){
+
+    console.log("Entrei na busca");
+    
+    const regex = /^\d{8}$/;
+    if (!regex.test(this.cep)) {
+        alert('O CEP deve conter 7 dígitos e apenas números!');
+        return;
+    }
+
+    ReturnAddressByCep({cep: this.cep})
+      .then(result => {
+
+        this.ready = true;
+        this.address = result;
+        this.error = undefined;
+      })
+      .catch( error => {
+        this.error = error;
+        console.error('Erro ao chamar método Apex:', error);
+      });
+  }
+
+  handleResetarEndereco(){
+    let cep = this.template.querySelector("lightning-input");
+    cep.value = '';
+    this.ready = false;
+  }
+
+  //@wire(ReturnAddressByCep, {cep: '$cep'}) address;
+
+  // get endereco(){
+  //   return this.address.data;
+  // }
+
+  // name = 'Electra X4';
+  // description = 'A sweet bike built for comfort.';
+  // category = 'Mountain';
+  // material = 'Steel';
+  // price = '$2,700';
+  // pictureUrl = 'https://s3-us-west-1.amazonaws.com/sfdc-demo/ebikes/electrax4.jpg';
+  // ready = false;
+
+  // connectedCallback() {
+  //   setTimeout(() => {
+  //     this.ready = true;
+  //   }, 3000);
+  // }
 }
 
 // :: Ganchos de ciclo de vida ::

@@ -56,6 +56,17 @@
     4. Extension VS Code: Salesforce Extension Pack
     5. Lightning Data Service (LDS): https://developer.salesforce.com/docs/platform/lwc/guide/data-ui-api?_ga=2.58323887.46376943.1715208361-164224861.1712974007
 
+# Comandos
+
+* command -flag arguments
+* Criar novo projeto: sf project generate -n MyProject
+* Criar org temporária: sf org create scratch -f project-scratch-def.json -d
+* Criar diretório: mkdir Resume
+* Mudar diretório: cd Documents (change directory)
+* Ver histórico de comandos: F7
+* Instalar extensão: Salesforce Extension Pack
+* npm install npm@latest -g
+
 # Salesforce DX Project: Next Steps
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.

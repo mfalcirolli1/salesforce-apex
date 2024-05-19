@@ -1,15 +1,58 @@
 <template>
-    <template lwc:if={ready}> 
-      <div id="display">
-        <div>Name: {name}</div>
-        <div>Description: {description}</div>
-        <lightning-badge label={material}></lightning-badge>
-        <lightning-badge label={category}></lightning-badge>
-        <div>Price: {price}</div>
-        <div><img src={pictureUrl}/></div>
-      </div>
-    </template>
-    <template lwc:else>
-      <div id="waiting">Loading…</div>
-    </template>
+
+  <div class="header" id="header">
+    <h2 class="slds-text-heading_medium"> Obter Enredeço do Cliente de acordo com o <code>CEP</code> </h2>
+    <lightning-badge label="Obter Cep"></lightning-badge>
+  </div>
+
+  <div class="cepBtns">
+    <lightning-input 
+      onchange={handleInputCepChange}
+      class="inserirCep"
+      type="text" 
+      label="Insira o CEP" 
+      placeholder="Digite aqui..." 
+      required
+      max-length="8">
+    </lightning-input>
+
+    <lightning-button 
+      class="btnConsultar"
+      label="Consultar" 
+      title="Consultar cep" 
+      onclick={handleBuscarEndereco}>
+    </lightning-button>
+
+    <lightning-button
+      class="btnLimpar"
+      label="Limpar" 
+      title="Resetar" 
+      onclick={handleResetarEndereco}>
+    </lightning-button>
+  </div>
+
+  <template lwc:if={ready}>
+
+    <div class="searchCep">
+      <lightning-input-address
+        id="campoEndereco"
+        address-label="Endereço"
+        street-label="Rua"
+        city-label="Cidade"
+        country-label="País"
+        province-label="Estado"
+        postal-code-label="CEP"
+        street={address.logradouro}
+        city={address.localidade}
+        country="BR"
+        province={address.uf}
+        postal-code={address.cep}
+        required
+        field-level-help="Campos contendo as informações de endereço do CEP informado"
+        disabled>
+      </lightning-input-address>
+    </div>
+
   </template>
+
+</template>
