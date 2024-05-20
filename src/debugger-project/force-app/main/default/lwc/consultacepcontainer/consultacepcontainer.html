@@ -1,0 +1,17 @@
+<template>
+    <div>
+        <lightning-combobox
+            class="contactCombobox"
+            name="contactCombobox"
+            label="Lista de Clientes"
+            placeholder="Selecione um cliente"
+            options={contacts}
+            onchange={handleContactSelected}>
+        </lightning-combobox>
+    </div>
+
+    <template lwc:if={contactSelected}>
+        <c-app></c-app>
+    </template>
+
+</template>

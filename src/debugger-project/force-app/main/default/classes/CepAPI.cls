@@ -30,6 +30,20 @@ public with sharing class CepAPI {
             throw ex;
         }
     }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Contact> ReturnAllContacts(){
+
+        try {
+            List<Contact> contacts = [SELECT Id, Name, MailingAddress FROM Contact ORDER BY Name DESC];
+            System.debug(contacts);
+            return contacts;
+            
+        } catch (Exception ex) {
+            System.debug('Exception: ' + ex.getMessage() + '\n' + ex.getStackTraceString());
+            throw ex;
+        }
+    }
 }
 
 // Setup > Security > Remote Site Settings > New Remote Site
