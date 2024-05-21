@@ -7,6 +7,9 @@ export default class Consultacepcontainer extends LightningElement {
     @track contacts = [];
     contactSelected = false;
 
+    @api nome;
+    @api valor;
+
     connectedCallback() {
         this.handleBuscarContatos();
     }
@@ -34,6 +37,8 @@ export default class Consultacepcontainer extends LightningElement {
 
     handleContactSelected(){
         this.contactSelected = true;
+        let option = this.template.querySelector('.contactCombobox').value;
+        console.log(option);
     }
 }
 

@@ -8,6 +8,7 @@ import ReturnAddressByCep from '@salesforce/apex/CepAPI.ReturnAddressByCep'
 export default class App extends LightningElement {
 
   ready = false;
+  loadFlag = false;
   
   @track address;
   @track cep;
@@ -21,10 +22,12 @@ export default class App extends LightningElement {
   handleBuscarEndereco(){
 
     console.log("Entrei na busca");
+    this.loadFlag = true;
     
     const regex = /^\d{8}$/;
     if (!regex.test(this.cep)) {
         alert('O CEP deve conter 7 dígitos e apenas números!');
+        this.loadFlag = false;
         return;
     }
 
@@ -34,9 +37,11 @@ export default class App extends LightningElement {
         this.ready = true;
         this.address = result;
         this.error = undefined;
+        this.loadFlag = false;
       })
       .catch( error => {
         this.error = error;
+        this.loadFlag = false;
         console.error('Erro ao chamar método Apex:', error);
       });
   }
