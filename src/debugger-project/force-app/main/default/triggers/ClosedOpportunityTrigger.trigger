@@ -1,16 +1,25 @@
-trigger AccountAddressTrigger on Account (before insert, before update) {
+trigger ClosedOpportunityTrigger on Opportunity (after insert, after update) {
 
     if(Trigger.isInsert || Trigger.isUpdate){
-        if(Trigger.isBefore){
-            for(Account act : Trigger.new){
-                if(act.Match_Billing_Address__c){
-                    act.ShippingPostalCode = act.BillingPostalCode;
+        if(Trigger.isAfter){
+            
+            List<Task> tasks = new List<Task>();
+
+            for (Opportunity op : Trigger.new) {
+                if(op.StageName == 'Closed Won'){
+                    Task task = new Task();
+                    Task.Subject = 'Follow Up Test Task';
+                    Task.Whatid = op.Id;
+                    tasks.add(task);
                 }
+            }
+
+            if(tasks.size() > 0){
+                insert tasks;
             }
         }
     }
 }
-
 
 /*
     trigger TriggerName on ObjectName (trigger_events) {
