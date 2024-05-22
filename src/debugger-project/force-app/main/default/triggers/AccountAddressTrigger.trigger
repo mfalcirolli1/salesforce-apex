@@ -1,9 +1,16 @@
-trigger AccountTrigger on Account (before insert) {
+trigger AccountAddressTrigger on Account (before insert, before update) {
 
-    if(Trigger.isBefore && Trigger.isInsert){
-        AccountTriggerHandler.CreateAccounts(Trigger.New);
+    if(Trigger.isInsert || Trigger.isUpdate){
+        if(Trigger.isBefore){
+            for(Account act : Trigger.new){
+                if(act.Match_Billing_Address__c){
+                    act.ShippingPostalCode = act.BillingPostalCode;
+                }
+            }
+        }
     }
 }
+
 
 /*
     trigger TriggerName on ObjectName (trigger_events) {
