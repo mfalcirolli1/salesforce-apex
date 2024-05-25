@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Upload Arquivo Excel" class="upload-card">
+        <div class="input-container">
+            <lightning-input type="file" label="Selecione um arquivo Excel" onchange={handleFileChange} class="file-input"></lightning-input>
+            <p class="nome-arquivo"> Arquivo: {nomeArquivo} </p>
+            <lightning-button label="Upload" onclick={uploadFile} disabled={isUploadDisabled} class="upload-button"></lightning-button>
+        </div>
+    </lightning-card>
+
+    <template lwc:if={success}>
+        <div class="message-container success-message">
+            <div>
+                <p> Os registros do arquivo foram importados com sucesso! </p>
+            </div>
+            <div>
+                <p> Quantidade registros: {quantidadeRegistros} </p>
+            </div>
+            <!-- <lightning-datatable
+                    key-field="id"
+                    data={data}
+                    columns={columns}>
+            </lightning-datatable> -->
+        </div>
+    </template>
+    <template lwc:else>
+        <div class="message-container error-message">
+            <p> {mensagemResultado} </p>
+        </div>
+    </template>
+</template>
