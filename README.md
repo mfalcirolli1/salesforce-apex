@@ -42,6 +42,8 @@
 * Métodos Database possuem um parâmetro allOrNone opcional, que permite que especifique se a operação pode ser parcialmente bem-sucedida (Database.insert(recordList, false);).
 * Por padrão, o parâmetro allOrNone é definido como 'true'. (Database.insert(recordList); == Database.insert(recordList, true);)
 * Os métodos Database retornam objetos de resultado contendo informações de sucesso ou falha para cada registro.
+
+```apex
 Database.SaveResult[] srList = Database.insert(conList, false);
 for (Database.SaveResult sr : srList) {
     if (sr.isSuccess()) {
@@ -53,6 +55,7 @@ for (Database.SaveResult sr : srList) {
 	 }
     }
 }
+```
 
 # Níveis de Registro
 
