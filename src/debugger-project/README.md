@@ -28,6 +28,32 @@
 * Cada registro de depuração tem de ter até 20 MB
 * Cada organização pode reter até 1.000 MB de registros de depuração (os registros mais antigos são substituídos)
 
+# DML (Data Manipulation Language)
+
+* insert (inserir)
+* update (atualizar)
+* upsert (inserir e atualizar)
+* delete (excluir)
+* undelete (desfazer exclusão)
+* merge (mesclar)
+
+* DML Exception --> catch (DmlException e)
+
+* Métodos Database possuem um parâmetro allOrNone opcional, que permite que especifique se a operação pode ser parcialmente bem-sucedida (Database.insert(recordList, false);).
+* Por padrão, o parâmetro allOrNone é definido como 'true'. (Database.insert(recordList); == Database.insert(recordList, true);)
+* Os métodos Database retornam objetos de resultado contendo informações de sucesso ou falha para cada registro.
+Database.SaveResult[] srList = Database.insert(conList, false);
+for (Database.SaveResult sr : srList) {
+    if (sr.isSuccess()) {
+        System.debug('Successfully inserted contact. Contact ID: ' + sr.getId());
+    } else {
+        for(Database.Error err : sr.getErrors()) {
+            System.debug(err.getStatusCode() + ': ' + err.getMessage());
+            System.debug('Contact fields that affected this error: ' + err.getFields());
+	 }
+    }
+}
+
 # Níveis de Registro
 
 * NONE (NENHUM)
