@@ -206,4 +206,9 @@ public with sharing class SalesforceApexClassYoutube {
 
     // Pesquisar em objetos personalizados
     // FIND {pink hi\-top} RETURNING Merchandise__c (acrescentar o sufixo '__c')
+
+    // FIND {Wingo} IN ALL FIELDS RETURNING Account(Name), Contact(FirstName,LastName,Department) -->> Query editor
+    // FIND 'Wingo' IN ALL FIELDS RETURNING Account(Name), Contact(FirstName,LastName,Department) -->> Apex class
+    // Account[] searchAccounts = (Account[])searchList[0];
+    // Contact[] searchContacts = (Contact[])searchList[1];
 }
