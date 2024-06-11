@@ -96,6 +96,29 @@ for (Database.SaveResult sr : srList) {
 * Instalar extensão: Salesforce Extension Pack
 * npm install npm@latest -g
 
+# Métodos Futuros (@future)
+
+* Métodos futuros tem que ser estáticos
+* Só podem retornar um tipo 'void'
+* São utilizados para fazer callouts para serviços da Web externos
+* Os parâmetros especificados precisam ser tipos de dados primitivos, matrizes de tipos de dados primitivos ou coleções de tipos de dados primitivos
+
+> **O motivo de os objetos não poderem ser passados como argumentos para métodos futuros é que o objeto pode mudar entre o momento em que o método é chamado e o momento em que ele é realmente executado**
+> **Métodos Futuros são executados quando os recursos do sistema se tornam disponíveis**
+> **Não é garantido que métodos futuros sejam executados na mesma sequência em que foram chamados**
+> **Também é possível que dois métodos futuros possam ser executados simultaneamente**
+
+```apex
+public class SomeClass {
+  @future
+  public static void someFutureMethod(List<Id> recordIds) {
+    List<Account> accounts = [Select Id, Name from Account Where Id IN :recordIds];
+    // process account records to do awesome stuff
+  }
+}
+```
+
+
 # Salesforce DX Project: Next Steps
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
