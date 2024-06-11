@@ -103,10 +103,10 @@ for (Database.SaveResult sr : srList) {
 * São utilizados para fazer callouts para serviços da Web externos
 * Os parâmetros especificados precisam ser tipos de dados primitivos, matrizes de tipos de dados primitivos ou coleções de tipos de dados primitivos
 
-> **O motivo de os objetos não poderem ser passados como argumentos para métodos futuros é que o objeto pode mudar entre o momento em que o método é chamado e o momento em que ele é realmente executado**
-> **Métodos Futuros são executados quando os recursos do sistema se tornam disponíveis**
-> **Não é garantido que métodos futuros sejam executados na mesma sequência em que foram chamados**
-> **Também é possível que dois métodos futuros possam ser executados simultaneamente**
+> * O motivo de os objetos não poderem ser passados como argumentos para métodos futuros é que o objeto pode mudar entre o momento em que o método é chamado e o momento em que ele é realmente executado
+> * Métodos Futuros são executados quando os recursos do sistema se tornam disponíveis
+> * Não é garantido que métodos futuros sejam executados na mesma sequência em que foram chamados
+> * Também é possível que dois métodos futuros possam ser executados simultaneamente
 
 ```apex
 public class SomeClass {
