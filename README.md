@@ -118,6 +118,82 @@ public class SomeClass {
 }
 ```
 
+# Apex de lote
+
+* A classe tem de implementar a interface Database.Batchable e incluir os três métodos a seguir: Start, Execute, Finish
+*  Cada execução de um trabalho do Apex de lote é considerada uma **operação discreta**
+
+```apex
+public class MyBatchClass implements Database.Batchable<sObject> {
+    public (Database.QueryLocator | Iterable<sObject>) start(Database.BatchableContext bc) {
+        // collect the batches of records or objects to be passed to execute
+    }
+    public void execute(Database.BatchableContext bc, List<P> records){
+        // process each batch of records
+    }
+    public void finish(Database.BatchableContext bc){
+        // execute any post-processing operations
+    }
+}
+```
+
+* Como invocar uma classe de lote
+
+```apex
+MyBatchClass myBatchObject = new MyBatchClass();
+Id batchId = Database.executeBatch(myBatchObject, 100);
+```
+
+* Cada invocação do Apex de lote cria um registro AsyncApexJob para que possa acompanhar o progresso do trabalho
+
+```apex
+AsyncApexJob job = [SELECT Id, Status, JobItemsProcessed, TotalJobItems, NumberOfErrors FROM AsyncApexJob WHERE ID = :batchId ];
+```
+
+```apex
+public class UpdateContactAddresses implements
+    Database.Batchable<sObject>, Database.Stateful {
+    // instance member to retain state across transactions
+    public Integer recordsProcessed = 0;
+    public Database.QueryLocator start(Database.BatchableContext bc) {
+        return Database.getQueryLocator(
+            'SELECT ID, BillingStreet, BillingCity, BillingState, ' +
+            'BillingPostalCode, (SELECT ID, MailingStreet, MailingCity, ' +
+            'MailingState, MailingPostalCode FROM Contacts) FROM Account ' +
+            'Where BillingCountry = \'USA\''
+        );
+    }
+
+    public void execute(Database.BatchableContext bc, List<Account> scope){
+        // process each batch of records
+        List<Contact> contacts = new List<Contact>();
+        for (Account account : scope) {
+            for (Contact contact : account.contacts) {
+                contact.MailingStreet = account.BillingStreet;
+                contact.MailingCity = account.BillingCity;
+                contact.MailingState = account.BillingState;
+                contact.MailingPostalCode = account.BillingPostalCode;
+                // add contact to list to be updated
+                contacts.add(contact);
+                // increment the instance member counter
+                recordsProcessed = recordsProcessed + 1;
+            }
+        }
+        update contacts;
+    }
+
+    public void finish(Database.BatchableContext bc){
+        System.debug(recordsProcessed + ' records processed. Shazam!');
+        AsyncApexJob job = [SELECT Id, Status, NumberOfErrors,
+            JobItemsProcessed,
+            TotalJobItems, CreatedBy.Email
+            FROM AsyncApexJob
+            WHERE Id = :bc.getJobId()];
+        // call some utility to send email
+        EmailUtils.sendMessage(job, recordsProcessed);
+    }
+}
+```
 
 # Salesforce DX Project: Next Steps
 
