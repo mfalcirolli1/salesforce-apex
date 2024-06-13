@@ -118,6 +118,69 @@ public class SomeClass {
 }
 ```
 
+# Queueable Apex
+
+* Para usar o Apex que permite a execução em fila, basta implementar a interface Queueable
+* A classe Queueable pode conter variáveis membro de tipos de dados não primitivos, como sObjects ou tipos personalizados do Apex
+* É possível adicionar até 50 trabalhos à fila com o System.enqueueJob em uma só transação
+* Apenas um trabalho filho pode existir para cada trabalho pai que permite a execução em fila
+* Para as versões 'Developer Edition' e 'Trial orgs', a profundidade máxima da pilha para trabalhos encadeados é de 5
+
+```apex
+public class SomeClass implements Queueable {
+    public void execute(QueueableContext context) {
+        // awesome code here
+    }
+}
+```
+
+```apex
+public class UpdateParentAccount implements Queueable {
+    private List<Account> accounts;
+    private ID parent;
+    public UpdateParentAccount(List<Account> records, ID id) {
+        this.accounts = records;
+        this.parent = id;
+    }
+    public void execute(QueueableContext context) {
+        for (Account account : accounts) {
+          account.parentId = parent;
+          // perform other processing or callout
+        }
+        update accounts;
+    }
+}
+```
+
+* Para adicionar uma classe como um trabalho na fila, executar o seguinte código:
+
+```apex
+// Obter parâmetros
+List<Account> accounts = [select id from account where billingstate = ‘NY’];
+Id parentId = [select id from account where name = 'ACME Corp'][0].Id;
+
+// Instanciar a classe Queueable
+UpdateParentAccount updateJob = new UpdateParentAccount(accounts, parentId);
+ID jobID = System.enqueueJob(updateJob);
+```
+
+* Após enviar a classe Queueable para a execução, o trabalho será adicionado à fila e processado quando os recursos do sistema se tornarem disponíveis
+
+```apex
+SELECT Id, Status, NumberOfErrors FROM AsyncApexJob WHERE Id = :jobID
+```
+
+* Encadear trabalhos
+
+```apex
+public class FirstJob implements Queueable {
+    public void execute(QueueableContext context) {
+        // Chain this job to next job by submitting the next job
+        System.enqueueJob(new SecondJob());
+    }
+}
+```
+
 # Apex de lote
 
 * A classe tem de implementar a interface Database.Batchable e incluir os três métodos a seguir: Start, Execute, Finish
