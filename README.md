@@ -118,6 +118,42 @@ public class SomeClass {
 }
 ```
 
+# Schedulable Apex
+
+* Permite atrasar a execução de classes do Apex em uma hora especificada
+* Só podem ser agendados 100 trabalhos do Apex por vez e há um número máximo de execuções Apex agendadas para um período de 24 horas. Consulte Administradores e limites de execução, na seção Recursos, para obter detalhes
+* Tomar cuidado ao programar uma classe a partir de um acionador. Preciso garantir que o acionador não adicionará mais trabalhos agendados do que o limite.
+
+```apex
+public class SomeClass implements Schedulable {
+    public void execute(SchedulableContext ctx) {
+        // awesome code here
+    }
+}
+```
+
+* O método System.schedule() utiliza três argumentos: 
+	1. Nome para o trabalho
+	2. Expressão CRON usada para representar a data e hora na qual o trabalho está agendado para ser executado
+	3. Instância de uma classe que implemente a interface Schedulable
+
+```apex
+SomeClass someClass = new SomeClass();
+// Seconds Minutes Hours Day_of_month Month Day_of_week optional_year
+String sch = '20 30 8 10 2 ?';
+String jobID = System.schedule('Name for the process', sch, someClass);
+```
+
+* Scheduling a Job from the UI
+
+From Setup, enter Apex in the Quick Find box, then select Apex Classes.
+Click Schedule Apex.
+For the job name, enter something like Daily Oppty Reminder.
+Click the lookup button next to Apex class and enter * for the search term to get a list of all classes that can be scheduled. In the search results, click the name of your scheduled class.
+Select Weekly or Monthly for the frequency and set the frequency desired.
+Select the start and end dates, and a preferred start time.
+Click Save.
+
 # Queueable Apex
 
 * Para usar o Apex que permite a execução em fila, basta implementar a interface Queueable
